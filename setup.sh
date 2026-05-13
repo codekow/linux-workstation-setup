@@ -52,7 +52,8 @@ setup_dnf_software(){
 }
 
 setup_display_link(){
-  sudo dnf -y install https://github.com/displaylink-rpm/displaylink-rpm/releases/download/v6.1.1-2/fedora-42-displaylink-1.14.11-1.github_evdi.x86_64.rpm
+  DISPLAY_LINK_RPM=https://github.com/displaylink-rpm/displaylink-rpm/releases/download/v6.2.0-1/fedora-42-displaylink-1.14.16-1.github_evdi.x86_64.rpm
+  sudo dnf -y install "${DISPLAY_LINK_RPM}"
 }
 
 setup_user(){
