@@ -31,8 +31,13 @@ download_bins(){
   export PATH
 }
 
-update_fedora(){
+fedora_update(){
   sudo dnf -y upgrade --refresh
+}
+
+ubuntu_update(){
+  sudo apt update
+  sudo apt upgrade -y
 }
 
 setup_no_password_sudo(){
@@ -46,12 +51,19 @@ setup_flatpak_software(){
 }
 
 setup_dnf_software(){
-  [ -e dnf-packages.txt ] || return 1
-  sudo dnf -y install $(grep -v ^group dnf-packages.txt)
-  sudo dnf -y group install $(sed -n '/^group/ s/^group//p' dnf-packages.txt)
+  [ -e fedora/dnf-packages.txt ] || return 1
+  sudo dnf -y install $(grep -v ^group fedora/dnf-packages.txt)
+  sudo dnf -y group install $(sed -n '/^group/ s/^group//p' fedora/dnf-packages.txt)
 }
 
-setup_display_link(){
+setup_apt_software(){
+  [ -e ubuntu/apt-packages.txt ] || return 1
+  sudo apt update
+  sudo apt -y upgrade
+  sudo apt install -y $(grep -v ^group ubuntu/apt-packages.txt)
+}
+
+setup_dnf_display_link(){
   DISPLAY_LINK_RPM=https://github.com/displaylink-rpm/displaylink-rpm/releases/download/v6.2.0-1/fedora-42-displaylink-1.14.16-1.github_evdi.x86_64.rpm
   sudo dnf -y install "${DISPLAY_LINK_RPM}"
 }
@@ -60,8 +72,8 @@ setup_user(){
   sudo usermod -a -G libvirt,disk,cdrom,floppy,kvm,users,dialout "${USER}"
 }
 
-setup_luks(){
-  sudo clevis luks bind -d /dev/nvme0n1p3 -s1 tpm2 '{"pcr_ids":"0"}'
+setup_clevis_tpm(){
+  sudo clevis luks bind -d /dev/nvme0n1p3 -s1 tpm2 '{"hash":"sha256","pcr_ids":"0,7,11"}'
   sudo systemd-analyze pcrs | sudo tee /root/pcrs
   sudo dracut --regenerate-all --force
 }
@@ -116,7 +128,7 @@ setup_obs(){
   mkdir -p ~/.config/obs-studio/plugins
 }
 
-tweaks(){
+tweaks_fedora(){
   # fix hidraw access
   echo 'KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", TAG+="uaccess"' | sudo tee /etc/udev/rules.d/99-hidraw-permissions.rules
   sudo udevadm control --reload-rules && sudo udevadm trigger
@@ -127,7 +139,8 @@ tweaks(){
   sudo authselect apply-changes
 
 }
-tweak_old_ssh(){
+
+tweak_fedora_old_ssh(){
 # https://discussion.fedoraproject.org/t/fedora-41-ssh-to-rhel6-error-in-libcrypto/135999/12
 
 sudo update-crypto-policies --set DEFAULT:SHA1
@@ -145,25 +158,33 @@ download_printer_driver(){
   echo "https://in.canon/en/support/0100924010"
 }
 
-main(){
-  echo "Starting OS configuration..."
+setup_fedora(){
+  fedora_update
 
   setup_dnf_software
+  setup_dnf_display_link
+  
   setup_flatpak_software
   setup_vscode
-  update_fedora 
 
   setup_dconf
-  setup_display_link
   setup_gnome_extensions
-  setup_luks
+  setup_clevis_tpm
   setup_no_password_sudo
   setup_user
-  tweaks
+  tweaks_fedora
 
   download_printer_driver
   # setup_obs
+}
 
+setup_ubuntu(){
+  ubuntu_update
+  setup_apt_software
+}
+
+main(){
+  echo "Starting OS configuration..."
   printf " Complete"
 }
 
