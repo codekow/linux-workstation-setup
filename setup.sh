@@ -36,7 +36,7 @@ setup_apt_vscode(){
   echo "code code/add-microsoft-repo boolean true" | sudo debconf-set-selections
 
   sudo apt update
-  sudo  -y install code # or code-insiders
+  sudo apt -y install code # or code-insiders
 }
 
 download_bins(){
@@ -218,7 +218,7 @@ setup_ubuntu(){
   setup_apt_software
   setup_apt_display_link
 
-  # setup_apt_brave_browser
+  setup_apt_brave_browser
   # setup_apt_vscode
 }
 
