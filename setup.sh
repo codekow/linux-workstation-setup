@@ -8,14 +8,33 @@ setup_dnf_brave_browser(){
   sudo dnf -y install brave-browser
 }
 
+setup_apt_brave_browser(){
+  sudo apt install curl
+
+  sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+  sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
+
+  sudo apt update
+  sudo apt -y install brave-browser
+}
+
 setup_dnf_vscode(){
   # https://code.visualstudio.com/docs/setup/linux#_rhel-fedora-and-centos-based-distributions
 
   sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
   echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
 
-  dnf check-update
+  sudo dnf check-update
   sudo dnf -y install code # or code-insiders
+}
+
+setup_apt_vscode(){
+  # https://code.visualstudio.com/docs/setup/linux#_rhel-fedora-and-centos-based-distributions
+
+  echo "code code/add-microsoft-repo boolean true" | sudo debconf-set-selections
+
+  sudo apt update
+  sudo  -y install code # or code-insiders
 }
 
 download_bins(){
@@ -37,7 +56,7 @@ fedora_update(){
 
 ubuntu_update(){
   sudo apt update
-  sudo apt upgrade -y
+  sudo apt -y upgrade
 }
 
 setup_no_password_sudo(){
@@ -60,12 +79,20 @@ setup_apt_software(){
   [ -e ubuntu/apt-packages.txt ] || return 1
   sudo apt update
   sudo apt -y upgrade
-  sudo apt install -y $(grep -v ^group ubuntu/apt-packages.txt)
+  sudo apt -y install $(grep -v ^group ubuntu/apt-packages.txt)
 }
 
 setup_dnf_display_link(){
   DISPLAY_LINK_RPM=https://github.com/displaylink-rpm/displaylink-rpm/releases/download/v6.2.0-1/fedora-42-displaylink-1.14.16-1.github_evdi.x86_64.rpm
   sudo dnf -y install "${DISPLAY_LINK_RPM}"
+}
+
+setup_apt_display_link(){
+  DISPLAY_LINK_DEB=https://www.synaptics.com/sites/default/files/Ubuntu/pool/stable/main/all/synaptics-repository-keyring.deb
+  sudo apt -y install "${DISPLAY_LINK_DEB}"
+
+  sudo apt update
+  sudo apt -y install displaylink-driver
 }
 
 setup_user(){
@@ -164,9 +191,11 @@ setup_fedora(){
   setup_dnf_software
   setup_dnf_display_link
   
+  setup_dnf_brave_browser
+  setup_dnf_vscode
+  
   setup_flatpak_software
-  setup_vscode
-
+  
   setup_dconf
   setup_gnome_extensions
   setup_clevis_tpm
@@ -180,7 +209,12 @@ setup_fedora(){
 
 setup_ubuntu(){
   ubuntu_update
+
   setup_apt_software
+  setup_apt_display_link
+
+  setup_apt_brave_browser
+  setup_apt_vscode
 }
 
 main(){
