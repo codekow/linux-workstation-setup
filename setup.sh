@@ -89,7 +89,10 @@ setup_dnf_display_link(){
 
 setup_apt_display_link(){
   DISPLAY_LINK_DEB=https://www.synaptics.com/sites/default/files/Ubuntu/pool/stable/main/all/synaptics-repository-keyring.deb
-  sudo apt -y install "${DISPLAY_LINK_DEB}"
+
+  curl -Lo install.deb "${DISPLAY_LINK_DEB}"
+  sudo apt -y install install.deb
+  rm install.deb
 
   sudo apt update
   sudo apt -y install displaylink-driver
@@ -213,13 +216,13 @@ setup_ubuntu(){
   setup_apt_software
   setup_apt_display_link
 
-  setup_apt_brave_browser
-  setup_apt_vscode
+  # setup_apt_brave_browser
+  # setup_apt_vscode
 }
 
 main(){
   echo "Starting OS configuration..."
-  printf " Complete"
+  echo " Complete"
 }
 
 main
