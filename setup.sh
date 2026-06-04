@@ -1,5 +1,7 @@
 #!/bin/bash
 
+DEBIAN_FRONTEND=noninteractive
+
 setup_dnf_brave_browser(){
   # https://brave.com/linux
   sudo dnf -y install dnf-plugins-core
