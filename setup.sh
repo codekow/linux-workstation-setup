@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 setup_brave_browser(){
   # https://brave.com/linux
