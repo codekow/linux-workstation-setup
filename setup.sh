@@ -1,6 +1,6 @@
 #!/bin/bash
 
-setup_brave_browser(){
+setup_dnf_brave_browser(){
   # https://brave.com/linux
   sudo dnf -y install dnf-plugins-core
 
@@ -8,7 +8,7 @@ setup_brave_browser(){
   sudo dnf -y install brave-browser
 }
 
-setup_vscode(){
+setup_dnf_vscode(){
   # https://code.visualstudio.com/docs/setup/linux#_rhel-fedora-and-centos-based-distributions
 
   sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
