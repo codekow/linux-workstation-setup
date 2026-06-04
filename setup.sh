@@ -33,7 +33,10 @@ setup_dnf_vscode(){
 setup_apt_vscode(){
   # https://code.visualstudio.com/docs/setup/linux#_rhel-fedora-and-centos-based-distributions
 
-  echo "code code/add-microsoft-repo boolean true" | sudo debconf-set-selections
+  sudo apt install wget gpg
+  curl -sL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --yes --dearmor -o /usr/share/keyrings/microsoft.gpg
+
+  echo -e "Types: deb\nURIs: https://packages.microsoft.com/repos/code\nSuites: stable\nComponents: main\nArchitectures: amd64,arm64,armhf\nSigned-By: /usr/share/keyrings/microsoft.gpg" | sudo tee /etc/apt/sources.list.d/vscode.sources > /dev/null
 
   sudo apt update
   sudo apt -y install code # or code-insiders
