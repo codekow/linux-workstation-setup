@@ -50,7 +50,7 @@ download_bins(){
 
   rclone completion bash - | sudo tee /etc/profile.d/rclone.sh
   restic generate --bash-completion - | sudo tee /etc/profile.d/restic.sh
-  
+
   PATH=${HOME}/bin:${PATH}
   export PATH
 }
@@ -75,16 +75,16 @@ setup_flatpak_software(){
 }
 
 setup_dnf_software(){
-  [ -e fedora/dnf-packages.txt ] || return 1
-  sudo dnf -y install $(grep -v ^group fedora/dnf-packages.txt)
-  sudo dnf -y group install $(sed -n '/^group/ s/^group//p' fedora/dnf-packages.txt)
+  [ -e dnf-packages.txt ] || return 1
+  sudo dnf -y install $(grep -v ^group dnf-packages.txt)
+  sudo dnf -y group install $(sed -n '/^group/ s/^group//p' dnf-packages.txt)
 }
 
 setup_apt_software(){
-  [ -e ubuntu/apt-packages.txt ] || return 1
+  [ -e apt-packages.txt ] || return 1
   sudo apt update
   sudo apt -y upgrade
-  sudo apt -y install $(grep -v ^group ubuntu/apt-packages.txt)
+  sudo apt -y install $(grep -v ^group apt-packages.txt)
 }
 
 setup_dnf_display_link(){
@@ -114,7 +114,8 @@ setup_clevis_tpm(){
   do sudo cryptsetup isLuks $part && LUKS_PART=$part
   done
 
-  sudo clevis luks bind -d $part -s1 tpm2 '{"pcr_bank":"sha256","pcr_ids":"0,1,7"}'
+  sudo clevis luks bind \
+    -d $part -s1 tpm2 '{"pcr_bank":"sha256","pcr_ids":"0,1,7"}'
   sudo systemd-analyze pcrs | sudo tee /root/pcrs
   sudo dracut --regenerate-all --force
 }
@@ -204,12 +205,12 @@ setup_fedora(){
 
   setup_dnf_software
   setup_dnf_display_link
-  
+
   setup_dnf_brave_browser
   setup_dnf_vscode
-  
+
   setup_flatpak_software
-  
+
   setup_gnome_extensions
   setup_clevis_tpm
   setup_no_password_sudo
