@@ -172,15 +172,10 @@ setup_obs(){
 }
 
 tweaks_fedora(){
-  # fix hidraw access
-  echo 'KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", TAG+="uaccess"' | sudo tee /etc/udev/rules.d/99-hidraw-permissions.rules
-  sudo udevadm control --reload-rules && sudo udevadm trigger
-
   # fingerprint reader enable
   # https://www.bentasker.co.uk/posts/documentation/linux/enabling-fingerprint-authentication-on-linux.html
   sudo authselect enable-feature with-fingerprint
   sudo authselect apply-changes
-
 }
 
 tweak_fedora_old_ssh(){
@@ -195,6 +190,12 @@ __openssl_block_sha1_signatures = 0
 EOF
 
 sudo update-crypto-policies --set DEFAULT:SHA1-SSL-SIG
+}
+
+tweak_solaar(){
+  # fix hidraw access / solaar
+  echo 'KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", TAG+="uaccess"' | sudo tee /etc/udev/rules.d/99-hidraw-permissions.rules
+  sudo udevadm control --reload-rules && sudo udevadm trigger
 }
 
 download_printer_driver(){
@@ -219,6 +220,7 @@ setup_fedora(){
   setup_dconf
 
   tweaks_fedora
+  tweak_solaar
 }
 
 setup_ubuntu(){
@@ -236,6 +238,7 @@ setup_ubuntu(){
   setup_user
   setup_dconf
 
+  tweak_solaar
 }
 
 main(){
