@@ -108,11 +108,13 @@ setup_user(){
 }
 
 setup_clevis_tpm(){
+  sudo tpm2_getcap pcrs
+
   for part in /dev/nvme0n1*
   do sudo cryptsetup isLuks $part && LUKS_PART=$part
   done
 
-  sudo clevis luks bind -d $part -s1 tpm2 '{"hash":"sha256","pcr_ids":"0,7,11"}'
+  sudo clevis luks bind -d $part -s1 tpm2 '{"pcr_bank":"sha256"},"pcr_ids":"0,1,7"}'
   sudo systemd-analyze pcrs | sudo tee /root/pcrs
   sudo dracut --regenerate-all --force
 }
