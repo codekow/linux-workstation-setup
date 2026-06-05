@@ -34,7 +34,8 @@ setup_apt_vscode(){
   # https://code.visualstudio.com/docs/setup/linux#_rhel-fedora-and-centos-based-distributions
 
   sudo apt install wget gpg
-  curl -sL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --yes --dearmor -o /usr/share/keyrings/microsoft.gpg
+  curl -sL https://packages.microsoft.com/keys/microsoft.asc \
+    | sudo gpg --yes --dearmor -o /usr/share/keyrings/microsoft.gpg
 
   echo -e "Types: deb\nURIs: https://packages.microsoft.com/repos/code\nSuites: stable\nComponents: main\nArchitectures: amd64,arm64,armhf\nSigned-By: /usr/share/keyrings/microsoft.gpg" | sudo tee /etc/apt/sources.list.d/vscode.sources > /dev/null
 
@@ -44,7 +45,7 @@ setup_apt_vscode(){
 
 download_bins(){
   BIN_PATH=${HOME}/bin
-  . <(curl -Ls https://raw.githubusercontent.com/redhat-na-ssa/demo-ai-gitops-catalog/refs/heads/main/scripts/library/bin.sh)
+  . <(curl -sL https://raw.githubusercontent.com/redhat-na-ssa/demo-ai-gitops-catalog/refs/heads/main/scripts/library/bin.sh)
   bin_check rclone
   bin_check restic
 
@@ -95,7 +96,7 @@ setup_dnf_display_link(){
 setup_apt_display_link(){
   DISPLAY_LINK_DEB=https://www.synaptics.com/sites/default/files/Ubuntu/pool/stable/main/all/synaptics-repository-keyring.deb
 
-  curl -Lo synaptics-repository-keyring.deb "${DISPLAY_LINK_DEB}"
+  curl -sLo synaptics-repository-keyring.deb "${DISPLAY_LINK_DEB}"
   sudo apt -y install ./synaptics-repository-keyring.deb
   rm synaptics-repository-keyring.deb
 
