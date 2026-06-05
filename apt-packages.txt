@@ -37,6 +37,7 @@ qrencode
 shellcheck
 skopeo
 smartmontools
+solaar
 strace
 testdisk
 tmux

@@ -32,6 +32,7 @@ remmina
 sbsigntools
 setools-console
 ShellCheck
+solaar
 strace
 tmux
 vim
