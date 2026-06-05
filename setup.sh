@@ -204,15 +204,13 @@ setup_fedora(){
   
   setup_flatpak_software
   
-  setup_dconf
   setup_gnome_extensions
   setup_clevis_tpm
   setup_no_password_sudo
   setup_user
-  tweaks_fedora
+  setup_dconf
 
-  download_printer_driver
-  # setup_obs
+  tweaks_fedora
 }
 
 setup_ubuntu(){
@@ -222,7 +220,14 @@ setup_ubuntu(){
   setup_apt_display_link
 
   setup_apt_brave_browser
-  # setup_apt_vscode
+  setup_apt_vscode
+
+  setup_gnome_extensions
+  setup_clevis_tpm
+  setup_no_password_sudo
+  setup_user
+  setup_dconf
+
 }
 
 main(){
