@@ -114,7 +114,7 @@ setup_clevis_tpm(){
   do sudo cryptsetup isLuks $part && LUKS_PART=$part
   done
 
-  sudo clevis luks bind -d $part -s1 tpm2 '{"pcr_bank":"sha256"},"pcr_ids":"0,1,7"}'
+  sudo clevis luks bind -d $part -s1 tpm2 '{"pcr_bank":"sha256","pcr_ids":"0,1,7"}'
   sudo systemd-analyze pcrs | sudo tee /root/pcrs
   sudo dracut --regenerate-all --force
 }
