@@ -23,6 +23,7 @@ lm_sensors
 NetworkManager-*-gnome
 nmap
 obs-studio
+pigz
 podman-compose
 podman-docker
 pykickstart

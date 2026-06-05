@@ -27,6 +27,7 @@ net-tools
 network-manager-openconnect
 nmap
 openssh-server
+pigz
 podman
 podman-compose
 podman-docker
