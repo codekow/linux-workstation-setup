@@ -127,8 +127,7 @@ setup_dconf(){
 
   # fix terminal transparency
   TERM_UUID=$(dconf read /org/gnome/Ptyxis/default-profile-uuid | sed "s@'@@g")
-  dconf write "/org/gnome/Ptyxis/Profiles/${TERM_UUID}/opacity" 0.9375
-
+  dconf write "/org/gnome/Ptyxis/Profiles/${TERM_UUID}/opacity" 0.80
 
 cat << EOF | sudo tee /etc/dconf/db/local.d/10-power
 [org/gnome/settings-daemon/plugins/power]
