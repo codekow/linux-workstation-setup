@@ -5,3 +5,7 @@ com.slack.Slack
 org.gnome.gitlab.cheywood.Buffer
 org.gtk.Gtk3theme.Adwaita-dark
 org.signal.Signal
+org.kde.okular
+org.qbittorrent.qBittorrent
+org.telegram.desktop
+com.spotify.Client
