@@ -11,6 +11,7 @@ clevis-tpm2
 dconf-editor
 dislocker
 fastfetch
+fprintd
 genisoimage
 git
 gnome-shell-extension-manager
