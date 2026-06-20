@@ -88,6 +88,16 @@ setup_apt_software(){
   sudo apt -y install $(grep -v ^group apt-packages.txt)
 }
 
+setup_apt_dell_5540(){
+  # https://packages.broadcom.com/artifactory/dell-controlvault-drivers
+  # https://github.com/tgigli/latitude-5450-fingerprint-issue
+  DELL_URL=http://dell.archive.canonical.com/updates/pool/public/libf/libfprint-2-tod1-broadcom
+  DELL_FILE=libfprint-2-tod1-broadcom_5.15.285-5.15.010.0-0ubuntu2~22.04.1~oem1_amd64.deb
+
+  curl -sL ${DELL_URL}/${DELL_FILE} -o /tmp/fprint.deb
+  sudo apt install /tmp/fprint.deb
+}
+
 setup_dnf_display_link(){
   DISPLAY_LINK_RPM=https://github.com/displaylink-rpm/displaylink-rpm/releases/download/v6.2.0-1/fedora-42-displaylink-1.14.16-1.github_evdi.x86_64.rpm
   sudo dnf -y install "${DISPLAY_LINK_RPM}"
