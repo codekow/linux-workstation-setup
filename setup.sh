@@ -88,14 +88,23 @@ setup_apt_software(){
   sudo apt -y install $(grep -v ^group apt-packages.txt)
 }
 
-setup_apt_dell_5540(){
+setup_apt_broadcom_fprintd(){
   # https://packages.broadcom.com/artifactory/dell-controlvault-drivers
   # https://github.com/tgigli/latitude-5450-fingerprint-issue
+  # 
   DELL_URL=http://dell.archive.canonical.com/updates/pool/public/libf/libfprint-2-tod1-broadcom
   DELL_FILE=libfprint-2-tod1-broadcom_5.15.285-5.15.010.0-0ubuntu2~22.04.1~oem1_amd64.deb
 
   curl -sL ${DELL_URL}/${DELL_FILE} -o /tmp/fprint.deb
   sudo apt install /tmp/fprint.deb
+}
+
+setup_dnf_broadcom_fprintd(){
+  # https://copr.fedorainfracloud.org/coprs/grahamwhiteuk/libfprint-tod
+  sudo dnf -y copr enable grahamwhiteuk/libfprint-tod
+  sudo dnf -y swap libfprint libfprint-tod
+  sudo dnf -y install libfprint-2-tod1-broadcom libfprint-tod-selinux
+  sudo systemctl restart fprintd
 }
 
 setup_dnf_display_link(){
