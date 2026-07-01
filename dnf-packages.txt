@@ -20,6 +20,7 @@ iperf3
 keepassxc
 libvirt
 lm_sensors
+lorax
 NetworkManager-*-gnome
 nmap
 obs-studio
