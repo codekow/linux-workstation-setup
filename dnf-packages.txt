@@ -38,6 +38,7 @@ solaar
 strace
 tmux
 vim
+virt-install
 virt-manager
 wireguard-tools
 yq
