@@ -9,6 +9,7 @@ clevis-*
 dconf-editor
 duperemove
 fastfetch
+fdupes
 firewall-config
 firewalld
 genisoimage
