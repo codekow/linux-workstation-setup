@@ -2,10 +2,14 @@ com.github.tchx84.Flatseal
 com.mattjakeman.ExtensionManager
 com.rafaelmardojai.Blanket
 com.slack.Slack
+com.spotify.Client
+io.missioncenter.MissionCenter
 org.gnome.gitlab.cheywood.Buffer
 org.gtk.Gtk3theme.Adwaita-dark
-org.signal.Signal
+org.gtk.Gtk3theme.Adwaita-dark                                                          3.22                    system
+org.gtk.Gtk3theme.adw-gtk3-dark
+org.kde.KStyle.Adwaita
 org.kde.okular
 org.qbittorrent.qBittorrent
+org.signal.Signal
 org.telegram.desktop
-com.spotify.Client
