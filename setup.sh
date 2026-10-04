@@ -210,6 +210,12 @@ EOF
 sudo update-crypto-policies --set DEFAULT:SHA1-SSL-SIG
 }
 
+tweak_batenergy(){
+  curl -sL https://raw.githubusercontent.com/equaeghe/batenergy/refs/heads/main/batenergy.sh \
+    | sudo tee /usr/lib/systemd/system-sleep/batenergy.sh
+  sudo chmod +x /usr/lib/systemd/system-sleep/batenergy.sh
+}
+
 tweak_solaar(){
   # fix hidraw access / solaar
   echo 'KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", TAG+="uaccess"' | sudo tee /etc/udev/rules.d/99-hidraw-permissions.rules
@@ -239,6 +245,7 @@ setup_fedora(){
 
   tweaks_fedora
   tweak_solaar
+  tweak_batenergy
 }
 
 setup_ubuntu(){
@@ -257,6 +264,7 @@ setup_ubuntu(){
   setup_dconf
 
   tweak_solaar
+  tweak_batenergy
 }
 
 main(){

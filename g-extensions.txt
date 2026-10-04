@@ -1,7 +1,10 @@
+allowlockedremotedesktop@kamens.us
 appindicatorsupport@rgcjonas.gmail.com
 Battery-Health-Charging@maniacx.github.com
 BingWallpaper@ineffable-gmail.com
+blur-my-shell@aunetx
 burn-my-windows@schneegans.github.com
+caffeine@patapon.info
 dndsched@rozefound
 do-not-disturb-while-screen-sharing-or-recording@marcinjahn.com
 drive-menu@gnome-shell-extensions.gcampax.github.com
@@ -9,9 +12,12 @@ freon@UshakovVasilii_Github.yahoo.com
 gTile@vibou
 hibernate-status@dromi
 input-source-dbus-interface@raiden_fumo
+just-perfection-desktop@just-perfection
 launch-new-instance@gnome-shell-extensions.gcampax.github.com
 legacyschemeautoswitcher@joshimukul29.gmail.com
+lock-guard@fthx
 no-overview@fthx
+power-off-options@axelitama.github.io
 quicksettings-audio-devices-hider@marcinjahn.com
 sound-percentage@subashghimire.info.np
 spotify-ad-block@danigm.net
@@ -19,3 +25,4 @@ transparent-window-moving@noobsai.github.com
 upower-battery@codilia.com
 user-theme@gnome-shell-extensions.gcampax.github.com
 weatherornot@somepaulo.github.io
+wsmatrix@martin.zurowietz.de
